@@ -1,4 +1,4 @@
-const images = [
+const cardObjects = [
     {
         image: 'img/01.webp',
         title: 'Marvel\'s Spiderman Miles Morale',
@@ -22,36 +22,43 @@ const images = [
     }
 ];
 
-let currentIndex = 0;
 const imgContainer = document.querySelector(".img_container");
-const arrayImg = [];
-const arrayTitle = [];
-const arrayText = [];
-/**
- * Cicla l'array di oggetti e pusha valori con la stessa chiave nei rispettivi array
- */
-images.forEach((element) =>{
-    arrayImg.push(element.image);
-    arrayTitle.push(element.title);
-    arrayText.push(element.text);
-});
+const thumbContainer = document.querySelector(".thumbnail_container");
 
-for (let i = 0; i < arrayImg.length; i++){
-    const currentImg = arrayImg[i];
+cardObjects.forEach((element, i) =>{
 
+    //crea div contenitore immagine + testo
+    const newDiv = document.createElement("div");
+    
+    //crea immagini
     const newImg = document.createElement("img");
     newImg.classList.add("img_carousel");
-    newImg.src = currentImg;
+    newImg.src = element.image;
+    
+    //crea div descrizione
+    const newDescription = document.createElement("div");
+    newDescription.classList.add("img_description");
+    
+    //crea titolo e paragrafo
+    const newTitle = document.createElement("h1");
+    newTitle.innerHTML = element.title;
+    const newParagraph = document.createElement("p");
+    newParagraph.innerHTML = element.text;
+    newDescription.append(newTitle, newParagraph);
+    
+    newDiv.append(newImg, newDescription);
 
-    // const newThumb = document.createElement("img");
-    // newThumb.classList.add("img_thumbnail");
-    // newThumb.src = currentImg;
+    //crea thumbnail
+    const newThumb = document.createElement("img");
+    newThumb.classList.add("img_thumbnail");
+    newThumb.src = element.image;
 
-    if (i === currentIndex){
+    if (i === 0){
         newImg.classList.add("visible");
-        //newThumb.classList.add("visible");
+        newDescription.classList.add("visible");
+        newThumb.classList.add("visible");
     }
 
-    imgContainer.append(newImg);
-    //thumbContainer.append(newThumb);
-}
+    imgContainer.append(newDiv);
+    thumbContainer.append(newThumb);
+});
