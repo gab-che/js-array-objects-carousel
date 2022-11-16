@@ -22,18 +22,12 @@ const images = [
     }
 ];
 
-let currentIndex;
-const imgContainer = document.querySelector(".img_container");
-const btnDown = document.getElementById("btn_down");
-const btnUp = document.getElementById("btn_up");
+const arrayImg = [];
+const arrayTitle = [];
+const arrayText = [];
 
-
-
-
-// btnDown.addEventListener("click", function(){
-
-// })
-
-// btnUp.addEventListener("click", function(){
-
-// })
+images.forEach((element) =>{
+    arrayImg.push(element.image);
+    arrayTitle.push(element.title);
+    arrayText.push(element.text);
+})
