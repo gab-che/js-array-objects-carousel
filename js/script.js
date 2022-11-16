@@ -22,8 +22,14 @@ const cardObjects = [
     }
 ];
 
-const imgContainer = document.querySelector(".img_container");
+let currentIndex = 0;
+const lastIndex = cardObjects.length - 1;
+
+const carouselContainer = document.querySelector(".carousel_container");
+const imgContainer = document.querySelector(".display_container");
 const thumbContainer = document.querySelector(".thumbnail_container");
+const btnUp = document.getElementById("button_up");
+const btnDown = document.getElementById("button_down");
 
 cardObjects.forEach((element, i) =>{
 
@@ -38,13 +44,7 @@ cardObjects.forEach((element, i) =>{
     //crea div descrizione
     const newDescription = document.createElement("div");
     newDescription.classList.add("img_description");
-    
-    //crea titolo e paragrafo
-    const newTitle = document.createElement("h1");
-    newTitle.innerHTML = element.title;
-    const newParagraph = document.createElement("p");
-    newParagraph.innerHTML = element.text;
-    newDescription.append(newTitle, newParagraph);
+    newDescription.innerHTML += `<h1>${element.title}</h1><p>${element.text}</p>`;
     
     newDiv.append(newImg, newDescription);
 
@@ -53,7 +53,7 @@ cardObjects.forEach((element, i) =>{
     newThumb.classList.add("img_thumbnail");
     newThumb.src = element.image;
 
-    if (i === 0){
+    if (i === currentIndex){
         newImg.classList.add("visible");
         newDescription.classList.add("visible");
         newThumb.classList.add("visible");
@@ -62,3 +62,21 @@ cardObjects.forEach((element, i) =>{
     imgContainer.append(newDiv);
     thumbContainer.append(newThumb);
 });
+
+btnDown.addEventListener("click", function(){
+    currentIndex++;
+    if (currentIndex > lastIndex){
+        currentIndex = 0;
+    }
+
+    toggleVisibility(carouselContainer);
+})
+
+btnUp.addEventListener("click", function(){
+    currentIndex--;
+    if (currentIndex < 0){
+        currentIndex = lastIndex;
+    }
+
+    toggleVisibility(carouselContainer);
+})
