@@ -22,12 +22,36 @@ const images = [
     }
 ];
 
+let currentIndex = 0;
+const imgContainer = document.querySelector(".img_container");
 const arrayImg = [];
 const arrayTitle = [];
 const arrayText = [];
-
+/**
+ * Cicla l'array di oggetti e pusha valori con la stessa chiave nei rispettivi array
+ */
 images.forEach((element) =>{
     arrayImg.push(element.image);
     arrayTitle.push(element.title);
     arrayText.push(element.text);
-})
+});
+
+for (let i = 0; i < arrayImg.length; i++){
+    const currentImg = arrayImg[i];
+
+    const newImg = document.createElement("img");
+    newImg.classList.add("img_carousel");
+    newImg.src = currentImg;
+
+    // const newThumb = document.createElement("img");
+    // newThumb.classList.add("img_thumbnail");
+    // newThumb.src = currentImg;
+
+    if (i === currentIndex){
+        newImg.classList.add("visible");
+        //newThumb.classList.add("visible");
+    }
+
+    imgContainer.append(newImg);
+    //thumbContainer.append(newThumb);
+}
