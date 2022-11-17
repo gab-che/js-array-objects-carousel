@@ -28,6 +28,7 @@ const lastIndex = cardObjects.length - 1;
 const carouselContainer = document.querySelector(".carousel_container");
 const imgContainer = document.querySelector(".display_container");
 const thumbContainer = document.querySelector(".thumbnail_container");
+
 const btnUp = document.getElementById("button_up");
 const btnDown = document.getElementById("button_down");
 
@@ -44,7 +45,7 @@ cardObjects.forEach((element, i) =>{
     //crea div descrizione
     const newDescription = document.createElement("div");
     newDescription.classList.add("img_description");
-    newDescription.innerHTML += `<h1>${element.title}</h1><p>${element.text}</p>`;
+    newDescription.innerHTML += `<h1>${element.title}</h1><h5>${element.text}</h5>`;
     
     newDiv.append(newImg, newDescription);
 
@@ -63,13 +64,17 @@ cardObjects.forEach((element, i) =>{
     thumbContainer.append(newThumb);
 });
 
+const allThumbs = thumbContainer.querySelectorAll("img");
+const allDescriptions = imgContainer.querySelectorAll(".img_description");
+const allImgs = imgContainer.querySelectorAll("img");
+
 btnDown.addEventListener("click", function(){
     currentIndex++;
     if (currentIndex > lastIndex){
         currentIndex = 0;
     }
-
-    toggleVisibility(carouselContainer);
+    removeVisibility(carouselContainer);
+    addVisibility(allImgs, allDescriptions, allThumbs);
 })
 
 btnUp.addEventListener("click", function(){
@@ -78,5 +83,16 @@ btnUp.addEventListener("click", function(){
         currentIndex = lastIndex;
     }
 
-    toggleVisibility(carouselContainer);
+    removeVisibility(carouselContainer);
+    addVisibility(allImgs, allDescriptions, allThumbs);
+})
+
+allThumbs.forEach((element)=>{
+    element.addEventListener("click", function(){
+        const visibleThumbs = thumbContainer.querySelectorAll(".visible");
+        visibleThumbs.forEach((element)=>{
+            element.classList.remove("visible");
+        })
+        this.classList.add("visible");  
+    });
 })
