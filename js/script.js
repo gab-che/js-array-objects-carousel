@@ -87,12 +87,10 @@ btnUp.addEventListener("click", function(){
     addVisibility(allImgs, allDescriptions, allThumbs);
 })
 
-allThumbs.forEach((element)=>{
+allThumbs.forEach((element, i)=>{
     element.addEventListener("click", function(){
-        const visibleThumbs = thumbContainer.querySelectorAll(".visible");
-        visibleThumbs.forEach((element)=>{
-            element.classList.remove("visible");
-        })
-        this.classList.add("visible");  
-    });
+        currentIndex = i;
+        removeVisibility(carouselContainer);
+        addVisibility(allImgs, allDescriptions, allThumbs);
+    });  
 })
